@@ -77,6 +77,10 @@ release, releases the connection back to the pool
 __enter__, use the with statement
 __exit__, exit the with statement cleanup logic
 
+### base_models.py
+
+defines the data structure for books and members
+
 ### book_db.py
 
 #### BookDB class manages the book table
