@@ -16,13 +16,13 @@ library-api/
 ├── app/  
 │   ├── main.py  
 │   ├── database/  
-│   │   ├── db\_connection.py  
-│   │   ├── book\_db.py  
-│   │   └── member\_db.py  
+│   │   ├── db_connection.py  
+│   │   ├── book_db.py  
+│   │   └── member_db.py  
 │   ├── routes/  
-│   │   ├── book\_routes.py  
-│   │   ├── member\_routes.py  
-│   │   └── report\_routes.py  
+│   │   ├── book_routes.py  
+│   │   ├── member_routes.py  
+│   │   └── report_routes.py  
 │   └── logs/  
 │       └── app.log  
 │  
@@ -65,7 +65,6 @@ class parameters: connection_pool
 function, description
 initialize, initialize the pool and calls create_tables
 create_tables, create the hardcoded tables
-destruct, disconnect the connection
 get_connection, pulls a connection and returns a DBConnection class
 
 #### DBConnection class manages a single connection
@@ -78,7 +77,7 @@ release, releases the connection back to the pool
 __enter__, use the with statement
 __exit__, exit the with statement cleanup logic
 
-### book_db
+### book_db.py
 
 #### BookDB class manages the book table
 
@@ -97,7 +96,7 @@ count_by_genre(), GET /reports/books-by-genre, count total number of books in ea
 count_active_borrows_by_member(member_id), PUT /books/{id}/borrow/{member_id}, count how many books \
 the member hold right now by reading the books's information
 
-## member_db
+### member_db.py
 
 ### MemberDB class manages the member tables
 
@@ -113,6 +112,14 @@ activate_member(id), PUT /members/{id}/activate, set is_active=True
 increment_borrows(id), PUT /books/{id}/borrow/{member_id}, raises total_borrows by one
 count_active_members(), GET /reports/summary, return total count of members with is_active=true
 get_top_member(), GET /reports/top-member, return the member th the highest total borrows
+
+### config.env
+
+holds db configurations
+
+### config.py
+
+passes configurations from config.env to the program
 
 ## logging
 
