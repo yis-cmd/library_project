@@ -11,7 +11,7 @@ db_config = Config()
 class DBConnections:
     _instance = None
 
-    def __new__(cls):
+    def __new__(cls, db_config):
         if not cls._instance:
             cls._instance = super().__new__(cls)
         return cls._instance
@@ -23,14 +23,14 @@ class DBConnections:
             raise ValueError(
                 "db configurations needed for initial pool connection instantiation"
             )
-        self.connection_pool = MySQLConnectionPool(
+        self._connection_pool = MySQLConnectionPool(
             pool_name="mysql_pool",
             pool_size=CONNECTION_POOL_SIZE,
             **db_config.model_dump()
         )
 
     def get_connection(self):
-        return DBConnection(self.connection_pool.get_connection())
+        return DBConnection(self._connection_pool.get_connection())
 
 
 class DBConnection:
@@ -58,3 +58,6 @@ class DBConnection:
         else:
             self.commit()
         self.release()
+
+
+db_connections = DBConnections(db_config)

@@ -77,6 +77,10 @@ release, releases the connection back to the pool
 __enter__, use the with statement
 __exit__, exit the with statement cleanup logic
 
+### engine.py
+
+an underlying sql query assembler upper layers use
+
 ### base_models.py
 
 defines the data structure for books and members

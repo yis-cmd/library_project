@@ -25,7 +25,12 @@ class CreateBook(BaseModel):
     author: str
     genre: Genre
 
-
+class InsertBook(BaseModel):
+    title: str = Field(max_length=50)
+    author: str = Field(max_length=50)
+    genre: Genre
+    is_available: bool = True
+    borrowed_by_member_id: int | None
 class Member(BaseModel):
     id: int
     name: str = Field(max_length=50)
