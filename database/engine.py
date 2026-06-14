@@ -97,11 +97,27 @@ class Engine:
     ):
         values = []
         final_column_name = build_column_names(count_by)
-        stmt = f"SELECT {f"{secure_identifier(column)}, " if column else ""} COUNT({final_column_name}) FROM {secure_identifier(table_name)}"
+        stmt = f"SELECT {f"{column}, " if column else ""} COUNT({final_column_name}) FROM {secure_identifier(table_name)}"
         if filters:
             filters_str, filter_values = build_filters(filters)
             stmt += " WHERE " + filters_str
             values += filter_values
         if group_by:
             stmt += " GROUP BY " + group_by
+        return self._execute(stmt, values)
+
+    def max(
+        self,
+        table_name: str,
+        max_of: str,
+        filters: dict[str, Any] | None = None,
+        column: str | None = None,
+    ):
+        values = []
+        final_column_name = build_column_names(max_of)
+        stmt = f"SELECT {f"{column}, " if column else ""} MAX({final_column_name}) FROM {secure_identifier(table_name)}"
+        if filters:
+            filters_str, filter_values = build_filters(filters)
+            stmt += " WHERE " + filters_str
+            values += filter_values
         return self._execute(stmt, values)

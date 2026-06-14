@@ -50,3 +50,13 @@ class Member(BaseModel):
 class CreateMember(BaseModel):
     name: str
     email: EmailStr
+
+class InsertMember(CreateMember):
+    is_active: bool = True
+    total_borrows: int = 0
+
+class UpdateMember(BaseModel):
+    name: str | None = Field(max_length=50, default=None)
+    email: EmailStr | None = None
+    is_active: bool | None = None
+    total_borrows: int | None = None
