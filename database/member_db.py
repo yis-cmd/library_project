@@ -1,4 +1,4 @@
-from engine import Engine
+from database.engine import Engine
 from database.base_models import CreateMember, Member, UpdateMember
 
 
@@ -6,6 +6,7 @@ class MemberDB:
     def __init__(self) -> None:
         self.table_name = "members"
         self.engine = Engine()
+        self.create_table()
 
     def create_table(self):
         stmt = """
@@ -17,6 +18,7 @@ class MemberDB:
                     total_borrows INT NOT NULL DEFAULT 0
                 )
                 """
+        self.engine.create_table(stmt)
 
     def create_member(self, data: CreateMember):
         self.engine.insert(self.table_name, data.model_dump())
@@ -27,6 +29,8 @@ class MemberDB:
 
     def get_member_by_id(self, id):
         data = self.engine.select(self.table_name, "*", {"id": id})
+        if not data:
+            return None
         return Member.model_validate(data[0])
 
     def update_member(self, id: int, data: UpdateMember):

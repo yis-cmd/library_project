@@ -6,6 +6,7 @@ class BookDB:
     def __init__(self) -> None:
         self.table_name = "books"
         self.engine = Engine()
+        self.create_table()
 
     def create_table(self):
         stmt = """
@@ -34,7 +35,7 @@ class BookDB:
             return Book.model_validate(data[0])
 
     def update_book(self, id: int, data: UpdateBook):
-        self.engine.update(
+        return self.engine.update(
             self.table_name, data.model_dump(exclude_none=True), {"id": id}
         )
 

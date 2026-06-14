@@ -47,7 +47,7 @@ borrowed_by_member_id, number, null if is_available, the borrowing member's id
 id: primary key, identity
 name: string max length 50, not null, member's name
 email: string max length 50, email has to be unique, not null, member's email
-is_active: bool, not null, is mamber active
+is_active: bool, not null, is member active
 total_borrows: number, not null, how many books did the member borrow since his registration
 
 ## modules
