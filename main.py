@@ -8,9 +8,3 @@ app = FastAPI()
 app.include_router(book_routes.book_router, prefix="/books")
 app.include_router(member_routes.member_router, prefix="/members")
 app.include_router(report_routes.report_router, prefix="/reports")
-
-updates = UpdateBook(title="thingy")
-import library
-
-library.update_book(56, updates)
-print(library.get_book_by_id(4))
