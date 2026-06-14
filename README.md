@@ -11,24 +11,28 @@ step4:uvicorn "main:app"
 
 ## project's directory structure
 
-library-api/  
-│  
-├── app/  
-│   ├── main.py  
-│   ├── database/  
-│   │   ├── db_connection.py  
-│   │   ├── book_db.py  
-│   │   └── member_db.py  
-│   ├── routes/  
-│   │   ├── book_routes.py  
-│   │   ├── member_routes.py  
-│   │   └── report_routes.py  
-│   └── logs/  
-│       └── app.log  
-│  
-├── README.md  
-├── requirements.txt  
-└── .gitignore
+.
+├── README.md
+├── config
+├── config.env
+├── config.py
+├── create_logger.py
+├── database
+│   ├── base_models.py
+│   ├── book_db.py
+│   ├── db_connection.py
+│   ├── engine.py
+│   └── member_db.py
+├── library.py
+├── logs
+├── main.py
+├── requirements.txt
+└── routes
+    ├── book_routes.py
+    ├── member_routes.py
+    └── report_routes.py
+
+5 directories, 15 files
 
 ## database
 
@@ -128,6 +132,10 @@ holds db configurations
 ### config.py
 
 passes configurations from config.env to the program
+
+### create_logger.py
+
+set up the system's logger
 
 ## logging
 
