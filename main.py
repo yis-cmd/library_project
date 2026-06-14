@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 
-from database.base_models import UpdateBook
 from routes import book_routes, member_routes, report_routes
 
 app = FastAPI()
