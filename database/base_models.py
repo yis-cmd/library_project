@@ -4,11 +4,11 @@ from pydantic import BaseModel, Field, EmailStr
 
 
 class Genre(StrEnum):
-    Fiction: str
-    Non_Fiction: str
-    Science: str
-    History: str
-    Other: str
+    FICTION = "Fiction"
+    NON_FICTION = "Non-Fiction"
+    SCIENCE = "Science"
+    HISTORY = "History"
+    OTHER = "Other"
 
 
 class Book(BaseModel):
@@ -21,16 +21,24 @@ class Book(BaseModel):
 
 
 class CreateBook(BaseModel):
-    title: str
-    author: str
-    genre: Genre
-
-class InsertBook(BaseModel):
     title: str = Field(max_length=50)
     author: str = Field(max_length=50)
     genre: Genre
+
+
+class InsertBook(CreateBook):
     is_available: bool = True
-    borrowed_by_member_id: int | None
+    borrowed_by_member_id: int | None = None
+
+
+class UpdateBook(BaseModel):
+    title: str | None = Field(max_length=50, default=None)
+    author: str | None = Field(max_length=50, default=None)
+    genre: Genre | None = None
+    is_available: bool | None = None
+    borrowed_by_member_id: int | None = None
+
+
 class Member(BaseModel):
     id: int
     name: str = Field(max_length=50)

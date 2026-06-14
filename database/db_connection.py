@@ -1,5 +1,4 @@
 from mysql.connector.pooling import MySQLConnectionPool, PooledMySQLConnection
-from mysql.connector import MySQLConnection
 from config import Config
 
 CONNECTION_POOL_SIZE = 10
@@ -38,7 +37,7 @@ class DBConnection:
         self.connection = connection
 
     def cursor(self):
-        return self.connection.cursor()
+        return self.connection.cursor(dictionary=True)
 
     def commit(self):
         self.connection.commit()
@@ -54,10 +53,10 @@ class DBConnection:
 
     def __exit__(self, exc_type, exc, tb):
         if exc_type:
+            print(exc_type)
             self.rollback()
         else:
             self.commit()
-        self.release()
 
 
 db_connections = DBConnections(db_config)
