@@ -110,14 +110,7 @@ class Engine:
         self,
         table_name: str,
         max_of: str,
-        filters: dict[str, Any] | None = None,
-        column: str | None = None,
     ):
         values = []
-        final_column_name = build_column_names(max_of)
-        stmt = f"SELECT {f"{column}, " if column else ""} MAX({final_column_name}) FROM {secure_identifier(table_name)}"
-        if filters:
-            filters_str, filter_values = build_filters(filters)
-            stmt += " WHERE " + filters_str
-            values += filter_values
+        stmt = f"SELECT * FROM {secure_identifier(table_name)} WHERE {secure_identifier(max_of)} = (SELECT MAX({secure_identifier(max_of)}) FROM {secure_identifier(table_name)})"
         return self._execute(stmt, values)

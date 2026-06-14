@@ -52,4 +52,4 @@ class MemberDB:
         return self.engine.count(self.table_name, "*", {"is_active": True})
 
     def get_top_member(self):
-        self.engine.max(self.table_name, "total_borrows", None, "*")
+        return self.engine.max(self.table_name, "total_borrows")
