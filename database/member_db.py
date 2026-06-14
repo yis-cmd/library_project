@@ -8,7 +8,15 @@ class MemberDB:
         self.engine = Engine()
 
     def create_table(self):
-        pass
+        stmt = """
+                CREATE TABLE IF NOT EXISTS members (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(50) NOT NULL,
+                    email VARCHAR(50) UNIQUE NOT NULL,
+                    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+                    total_borrows INT NOT NULL DEFAULT 0
+                )
+                """
 
     def create_member(self, data: CreateMember):
         self.engine.insert(self.table_name, data.model_dump())
@@ -37,7 +45,7 @@ class MemberDB:
         self.engine._execute(stmt, [id])
 
     def count_active_members(self):
-        return self.engine.count(self.table_name, "*", {"is_active":True})
+        return self.engine.count(self.table_name, "*", {"is_active": True})
 
     def get_top_member(self):
-        self.engine.max(self.table_name, "total_borrows",None, "*")
+        self.engine.max(self.table_name, "total_borrows", None, "*")
