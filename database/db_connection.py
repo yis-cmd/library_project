@@ -52,11 +52,14 @@ class DBConnection:
         return self
 
     def __exit__(self, exc_type, exc, tb):
-        if exc_type:
-            print(exc_type)
-            self.rollback()
-        else:
-            self.commit()
+        try:
+            if exc_type:
+                print(exc_type)
+                self.rollback()
+            else:
+                self.commit()
+        finally:
+            self.release()
 
 
 db_connections = DBConnections(db_config)

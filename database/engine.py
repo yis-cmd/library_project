@@ -33,13 +33,13 @@ def build_updates(updates: dict[str, Any]):
 
 
 class Engine:
-    def __init__(self) -> None:
-        self.connection = db_connections.get_connection()
+    # def __init__(self) -> None:
+        # self.connection = db_connections.get_connection()
 
     def _execute(self, stmt, values: list[Any] | None = None):
         if not values:
             values = []
-        with self.connection as conn:
+        with db_connections.get_connection() as conn:
             cur = conn.cursor()
             cur.execute(f"{stmt};", values)
             data = cur.fetchall()
