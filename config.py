@@ -7,6 +7,5 @@ class Config(BaseSettings):
     user: str = "root"
     password: str | None = None
     database: str | None = None
-    use_pure: bool = True
 
     model_config = SettingsConfigDict(env_file="config.env", env_prefix="DB_")

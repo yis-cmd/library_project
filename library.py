@@ -1,4 +1,5 @@
 from database import base_models
+from database import book_db
 from database.book_db import BookDB
 from database.member_db import MemberDB
 
@@ -35,6 +36,8 @@ def borrow_book(book_id: int, member_id: int):
     if not book_data or not member_data:
         raise HTTPException(404)
     if not book_data.is_available or not member_data.is_active:
+        raise HTTPException(400)
+    if get_member_borrowed_book_num(member_id) > 3:
         raise HTTPException(400)
     book_manager.set_available(book_id, False, member_id)
     member_manager.increment_borrows(member_id)
@@ -105,3 +108,7 @@ def get_books_by_genre():
 
 def get_most_active_member():
     return member_manager.get_top_member()
+
+
+def get_member_borrowed_book_num(member_id:int):
+    return book_manager.count_active_borrows_by_member(member_id)

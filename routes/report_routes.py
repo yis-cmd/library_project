@@ -21,4 +21,7 @@ def get_member():
     logger.info("GET /reports/top-member")
     return library.get_most_active_member()
 
-
+@report_router.put("/{id}/borrow/{member_id}")
+def get_member_borrowed_books(member_id:int):
+    logger.info("GET /reports/{id}/borrow/{member_id}")
+    return library.get_member_borrowed_book_num(member_id)
